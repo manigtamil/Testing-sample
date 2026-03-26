@@ -1,188 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Sister 🎉</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For My Sister 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  overflow: hidden;
-  color: white;
+:root{--pink:#ff4d88;--rose:#ff7eb3;--bg1:#1a0f1f;--bg2:#2a1230}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:'Poppins',sans-serif; color:#fff;
+  background: radial-gradient(1200px 600px at 50% -10%, #3b1a46, transparent), linear-gradient(135deg,var(--bg1),var(--bg2));
+  overflow:hidden;
 }
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
-  padding: 20px;
+.screen{display:none; height:100vh; width:100vw; align-items:center; justify-content:center; text-align:center; padding:24px}
+.active{display:flex}
+.card{
+  width:min(92vw,420px); padding:26px; border-radius:26px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.12);
+  animation: pop .6s ease;
 }
-
-h1 {
-  font-size: 2.8rem;
+.title{font-family:'Great Vibes',cursive; font-size:2.6rem; margin:0 0 8px}
+.sub{opacity:.9; margin:0 0 14px}
+.btn{
+  margin-top:16px; border:none; cursor:pointer; border-radius:999px;
+  padding:14px 26px; font-weight:600; letter-spacing:.3px;
+  color:#fff; background: linear-gradient(135deg,var(--pink),var(--rose));
+  box-shadow:0 10px 25px rgba(255,77,136,.45);
+  transition:.25s transform, .25s box-shadow;
 }
+.btn:hover{transform: translateY(-2px) scale(1.04); box-shadow:0 16px 35px rgba(255,77,136,.6)}
+img.photo{width:100%; border-radius:18px; margin:12px 0; box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.badge{display:inline-block; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.12); font-size:.85rem}
 
-p {
-  font-size: 1.2rem;
-  max-width: 350px;
-}
+/* progress dots */
+.dots{display:flex; gap:8px; justify-content:center; margin-top:10px}
+.dot{width:8px;height:8px;border-radius:50%;background:#ffffff55}
+.dot.on{background:#fff}
 
-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 30px;
-  background: white;
-  color: #ff4081;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: 0.3s;
-}
+/* floating balloons */
+.balloon{position:fixed; bottom:-80px; font-size:28px; animation:rise 8s linear infinite; opacity:.9}
+@keyframes rise{to{transform:translateY(-110vh)}}
 
-button:hover {
-  transform: scale(1.1);
-}
+/* sparkles */
+.spark{position:fixed; width:4px; height:4px; background:#fff; border-radius:50%; opacity:.7; animation:twinkle 2.5s infinite ease-in-out}
+@keyframes twinkle{50%{opacity:.2; transform:scale(0.6)}}
 
-.card { display: none; animation: fade 1s ease; }
+/* typing */
+.typing{min-height:70px}
 
-img {
-  width: 230px;
-  border-radius: 20px;
-  margin: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
+/* confetti */
+.conf{position:fixed; top:-10px; width:8px; height:12px; background:#fff; opacity:.9; animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
 
-@keyframes fade {
-  from {opacity: 0; transform: translateY(30px);} 
-  to {opacity: 1; transform: translateY(0);} 
-}
+/* slide gallery */
+.gallery{position:relative}
+.gallery img{display:none}
+.gallery img.active{display:block}
 
-/* Floating hearts */
-.heart {
-  position: absolute;
-  animation: float 5s linear infinite;
-}
+/* audio hint */
+.hint{font-size:.8rem; opacity:.8}
 
-@keyframes float {
-  0% {transform: translateY(100vh);} 
-  100% {transform: translateY(-10vh);} 
-}
-
-/* Confetti */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: white;
-  animation: fall 3s linear infinite;
-}
-
-@keyframes fall {
-  0% {transform: translateY(-10vh);} 
-  100% {transform: translateY(100vh);} 
-}
-
+@keyframes pop{from{transform:scale(.9); opacity:0} to{transform:scale(1); opacity:1}}
 </style>
 </head>
-
 <body>
 
-<!-- Music -->
-<audio autoplay loop>
+<audio id="bgm" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Page 1 -->
-<div class="container" id="page1">
-  <h1>🎁 Hey Sister!</h1>
-  <p>Something special is waiting for you 💖</p>
-  <button onclick="nextPage()">Open Surprise 🎉</button>
-</div>
+<!-- Screen 1: Gate -->
+<section id="s1" class="screen active">
+  <div class="card">
+    <div class="badge">🎁 Surprise Inside</div>
+    <h1 class="title">Hey Sister</h1>
+    <p class="sub">Tap to unlock something made just for you 💖</p>
+    <button class="btn" onclick="start()">Unlock 🔐</button>
+    <div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <p class="hint">(Tap anywhere if music doesn’t start)</p>
+  </div>
+</section>
 
-<!-- Page 2 -->
-<div class="container card" id="page2">
-  <h1>🎉 Happy Birthday 🎉</h1>
-  <img src="photo1.jpg">
-  <p>You are my happiness & strength 💕</p>
-  <button onclick="nextPage2()">Next 💫</button>
-</div>
+<!-- Screen 2: Wish -->
+<section id="s2" class="screen">
+  <div class="card">
+    <h1 class="title">Happy Birthday 🎉</h1>
+    <img class="photo" src="photo1.jpg" alt="memory">
+    <p class="sub">You make every day brighter 🌸</p>
+    <button class="btn" onclick="go(3)">Next ✨</button>
+    <div class="dots"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</section>
 
-<!-- Page 3 -->
-<div class="container card" id="page3">
-  <h1>💌 Message for You</h1>
-  <img src="photo2.jpg">
-  <p id="typing"></p>
-  <button onclick="nextPage3()">Final Surprise 🎂</button>
-</div>
+<!-- Screen 3: Typing message -->
+<section id="s3" class="screen">
+  <div class="card">
+    <h1 class="title">A Note for You 💌</h1>
+    <img class="photo" src="photo2.jpg" alt="memory">
+    <p id="type" class="typing"></p>
+    <button class="btn" onclick="go(4)">Final 🎂</button>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+  </div>
+</section>
 
-<!-- Page 4 -->
-<div class="container card" id="page4">
-  <h1>🎂 Enjoy Your Day 🎂</h1>
-  <img src="photo3.jpg">
-  <p>May all your dreams come true ✨</p>
-</div>
+<!-- Screen 4: Gallery + Confetti -->
+<section id="s4" class="screen">
+  <div class="card">
+    <h1 class="title">Celebrate You 🎂</h1>
+    <div class="gallery">
+      <img class="active" src="photo3.jpg" alt="g1">
+      <img src="photo1.jpg" alt="g2">
+      <img src="photo2.jpg" alt="g3">
+    </div>
+    <p class="sub">May your dreams come true ✨</p>
+    <button class="btn" onclick="blast()">Celebrate 🎆</button>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+  </div>
+</section>
 
 <script>
-
-function nextPage() {
-  document.getElementById('page1').style.display = 'none';
-  document.getElementById('page2').style.display = 'flex';
+// navigation
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  if(n===3) type();
+  if(n===4) autoSlide();
 }
 
-function nextPage2() {
-  document.getElementById('page2').style.display = 'none';
-  document.getElementById('page3').style.display = 'flex';
-  typeEffect();
+function start(){
+  playMusic();
+  go(2);
 }
 
-function nextPage3() {
-  document.getElementById('page3').style.display = 'none';
-  document.getElementById('page4').style.display = 'flex';
-  confettiEffect();
+// music (handles mobile autoplay block)
+function playMusic(){
+  const a=document.getElementById('bgm');
+  a.currentTime=0; a.play().catch(()=>{});
 }
+document.body.addEventListener('click',()=>{const a=document.getElementById('bgm'); if(a.paused) a.play().catch(()=>{});},{once:true});
 
-// Typing effect
-const text = "Thank you for always being there for me. I love you so much ❤️";
-let i = 0;
-function typeEffect() {
-  if (i < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeEffect, 50);
-  }
-}
+// typing effect
+const msg = "Thank you for being my best friend, my guide, and my biggest support. I love you endlessly ❤️";
+let ti=0; function type(){ const el=document.getElementById('type'); el.innerHTML=''; ti=0; (function t(){ if(ti<msg.length){ el.innerHTML+=msg.charAt(ti++); setTimeout(t,35);} })(); }
 
-// Hearts
-setInterval(() => {
-  let heart = document.createElement("div");
-  heart.innerHTML = "💖";
-  heart.classList.add("heart");
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 5000);
-}, 300);
+// balloons
+setInterval(()=>{ const b=document.createElement('div'); b.className='balloon'; b.style.left=Math.random()*100+'vw'; b.textContent = ['🎈','🎈','🎈','🎉','✨'][Math.floor(Math.random()*5)]; document.body.appendChild(b); setTimeout(()=>b.remove(),8000); },700);
 
-// Confetti
-function confettiEffect() {
-  for (let i = 0; i < 50; i++) {
-    let confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 3000);
-  }
-}
+// sparkles
+for(let i=0;i<60;i++){ const s=document.createElement('div'); s.className='spark'; s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'vh'; s.style.animationDelay=(Math.random()*2)+'s'; document.body.appendChild(s); }
 
+// gallery auto slide
+let gi=0, timer=null; function autoSlide(){ const imgs=document.querySelectorAll('.gallery img'); if(timer) return; timer=setInterval(()=>{ imgs[gi].classList.remove('active'); gi=(gi+1)%imgs.length; imgs[gi].classList.add('active'); },1500); }
+
+// confetti blast
+function blast(){ for(let i=0;i<120;i++){ const c=document.createElement('div'); c.className='conf'; c.style.left=Math.random()*100+'vw'; c.style.background = ['#fff','#ffd1dc','#ff9ecb','#ffe066'][Math.floor(Math.random()*4)]; c.style.animationDelay = (Math.random()*0.8)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),3200);} }
 </script>
-
 </body>
 </html>
