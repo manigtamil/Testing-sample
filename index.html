@@ -4,74 +4,111 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Sister 🎉</title>
+
 <style>
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  text-align: center;
-  color: #333;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  overflow: hidden;
+  color: white;
 }
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  text-align: center;
 }
+
+h1 {
+  font-size: 2.5rem;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+p {
+  font-size: 1.2rem;
+  max-width: 300px;
+}
+
 button {
-  padding: 15px 25px;
+  padding: 15px 30px;
   font-size: 18px;
   border: none;
-  border-radius: 25px;
-  background: #ff4081;
-  color: white;
+  border-radius: 30px;
+  background: white;
+  color: #ff4081;
   cursor: pointer;
+  margin-top: 20px;
   transition: 0.3s;
 }
+
 button:hover {
-  background: #e91e63;
+  transform: scale(1.1);
 }
-.card {
-  display: none;
-  animation: fadeIn 1s ease-in-out;
-}
+
+.card { display: none; }
+
 img {
-  width: 200px;
-  border-radius: 15px;
-  margin: 10px;
+  width: 220px;
+  border-radius: 20px;
+  margin: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
+
 @keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);} 
+  from {opacity: 0; transform: translateY(30px);} 
   to {opacity: 1; transform: translateY(0);} 
 }
+
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  color: pink;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(100vh) scale(0.5);} 
+  100% {transform: translateY(-10vh) scale(1.5);} 
+}
+
 </style>
 </head>
+
 <body>
 
+<!-- Music -->
+<audio id="music" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container" id="page1">
-  <h1>🎁 I have a surprise for you!</h1>
-  <button onclick="nextPage()">Click Me ❤️</button>
+  <h1>🎁 Hey Sister!</h1>
+  <p>I made something special for you 💖</p>
+  <button onclick="nextPage()">Tap to Open 🎉</button>
 </div>
 
 <div class="container card" id="page2">
-  <h1>🎉 Happy Birthday Sister! 🎉</h1>
-  <p>You are the best sister in the world 💖</p>
-  <img src="photo1.jpg" alt="memory">
-  <button onclick="nextPage2()">Next Surprise 🎊</button>
+  <h1>🎉 Happy Birthday 🎉</h1>
+  <p>You are my biggest happiness 💕</p>
+  <img src="photo1.jpg">
+  <button onclick="nextPage2()">Next 💫</button>
 </div>
 
 <div class="container card" id="page3">
-  <h1>💫 Special Message 💫</h1>
-  <p>Thank you for always being there for me. I love you so much! 💕</p>
-  <img src="photo2.jpg" alt="memory">
+  <h1>💌 Special Message</h1>
+  <p>Thank you for being my support, my best friend, and my everything ❤️</p>
+  <img src="photo2.jpg">
   <button onclick="nextPage3()">Final Surprise 🎂</button>
 </div>
 
 <div class="container card" id="page4">
   <h1>🎂 Enjoy Your Day 🎂</h1>
-  <p>May all your dreams come true ✨</p>
-  <img src="photo3.jpg" alt="memory">
+  <p>May your life be filled with happiness & success ✨</p>
+  <img src="photo3.jpg">
 </div>
 
 <script>
@@ -79,14 +116,30 @@ function nextPage() {
   document.getElementById('page1').style.display = 'none';
   document.getElementById('page2').style.display = 'flex';
 }
+
 function nextPage2() {
   document.getElementById('page2').style.display = 'none';
   document.getElementById('page3').style.display = 'flex';
 }
+
 function nextPage3() {
   document.getElementById('page3').style.display = 'none';
   document.getElementById('page4').style.display = 'flex';
 }
+
+// Floating hearts generator
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.innerHTML = "💖";
+  heart.classList.add("heart");
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}, 300);
 </script>
 
 </body>
