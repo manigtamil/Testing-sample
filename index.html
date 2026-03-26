@@ -3,147 +3,142 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ultimate Birthday Surprise 💖</title>
+<title>Birthday Surprise 💖</title>
+
+<!-- Tailwind CSS CDN for modern UI -->
+<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0; font-family:'Poppins',sans-serif; color:#fff;
-  background: linear-gradient(135deg,#1a0f1f,#2a1230);
-  overflow:hidden;
-}
-.screen{display:none; height:100vh; align-items:center; justify-content:center; text-align:center}
-.active{display:flex}
-.card{
-  width:90%; max-width:400px; padding:25px;
-  border-radius:25px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  box-shadow:0 15px 40px rgba(0,0,0,.5);
-}
-.title{font-family:'Great Vibes',cursive; font-size:2.5rem}
-.btn{
-  margin-top:15px; padding:12px 25px;
-  border:none; border-radius:30px;
-  background: linear-gradient(135deg,#ff4d88,#ff7eb3);
-  color:white; cursor:pointer;
-}
-img{width:100%; border-radius:15px; margin-top:10px}
+body { font-family: 'Poppins', sans-serif; }
+.title { font-family: 'Great Vibes', cursive; }
 
-/* Balloons */
-.balloon{position:absolute; bottom:-100px; font-size:30px; animation:rise 8s linear infinite}
-@keyframes rise{to{transform:translateY(-110vh)}}
+/* Floating balloons */
+.balloon {
+  position: fixed;
+  bottom: -100px;
+  font-size: 30px;
+  animation: rise 8s linear infinite;
+}
+@keyframes rise {
+  to { transform: translateY(-110vh); }
+}
 
 /* Confetti */
-.conf{position:fixed; width:10px; height:10px; animation:fall 3s linear}
-@keyframes fall{to{transform:translateY(110vh)}}
-
-/* Game box */
-.gift{
-  font-size:80px; cursor:pointer;
-  animation: bounce 1s infinite;
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  animation: fall 3s linear;
 }
-@keyframes bounce{50%{transform:translateY(-10px)}}
-
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
 </style>
 </head>
-<body>
+
+<body class="bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-700 text-white overflow-hidden">
 
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Screen Wrapper -->
+<div id="app" class="w-full h-screen flex items-center justify-center">
+
 <!-- Screen 1 -->
-<div class="screen active" id="s1">
-  <div class="card">
-    <h1 class="title">Hey Sister 💖</h1>
-    <p>I made something special for you</p>
-    <button class="btn" onclick="start()">Start 🎁</button>
-  </div>
+<div id="s1" class="text-center space-y-6">
+  <h1 class="title text-5xl">Hey Sister 💖</h1>
+  <p class="text-lg">I have something special for you</p>
+  <button onclick="start()" class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-110 transition">Start 🎁</button>
 </div>
 
-<!-- Screen 2 (Mini Game) -->
-<div class="screen" id="s2">
-  <div class="card">
-    <h1 class="title">Tap the Gift 🎁</h1>
-    <div class="gift" onclick="openGift()">🎁</div>
-    <p>Find your surprise 😄</p>
-  </div>
+<!-- Screen 2 Game -->
+<div id="s2" class="hidden text-center space-y-6">
+  <h1 class="title text-4xl">Tap the Gift 🎁</h1>
+  <div onclick="openGift()" class="text-8xl cursor-pointer animate-bounce">🎁</div>
+  <p>Tap to unlock your surprise 😄</p>
 </div>
 
 <!-- Screen 3 -->
-<div class="screen" id="s3">
-  <div class="card">
-    <h1 class="title">Happy Birthday 🎉</h1>
-    <img src="photo1.jpg">
-    <p>You are my happiness 💕</p>
-    <button class="btn" onclick="next(4)">Next</button>
-  </div>
+<div id="s3" class="hidden text-center space-y-4">
+  <h1 class="title text-5xl">Happy Birthday 🎉</h1>
+  <img src="photo1.jpg" class="w-64 mx-auto rounded-xl shadow-xl">
+  <p>You are my happiness 💕</p>
+  <button onclick="next(4)" class="bg-white text-pink-600 px-6 py-2 rounded-full">Next</button>
 </div>
 
 <!-- Screen 4 Typing -->
-<div class="screen" id="s4">
-  <div class="card">
-    <h1 class="title">Message 💌</h1>
-    <p id="text"></p>
-    <button class="btn" onclick="next(5)">Final</button>
-  </div>
+<div id="s4" class="hidden text-center space-y-4">
+  <h1 class="title text-4xl">Message 💌</h1>
+  <p id="text" class="text-lg"></p>
+  <button onclick="next(5)" class="bg-white text-pink-600 px-6 py-2 rounded-full">Final</button>
 </div>
 
 <!-- Screen 5 Final -->
-<div class="screen" id="s5">
-  <div class="card">
-    <h1 class="title">🎂 Enjoy Your Day 🎂</h1>
-    <img src="photo2.jpg">
-    <p>Love you forever ❤️</p>
-    <button class="btn" onclick="confetti()">Celebrate 🎆</button>
-  </div>
+<div id="s5" class="hidden text-center space-y-4">
+  <h1 class="title text-5xl">Enjoy Your Day 🎂</h1>
+  <img src="photo2.jpg" class="w-64 mx-auto rounded-xl shadow-xl">
+  <p>Love you forever ❤️</p>
+  <button onclick="celebrate()" class="bg-white text-pink-600 px-6 py-2 rounded-full">Celebrate 🎆</button>
+</div>
+
 </div>
 
 <script>
-function start(){
+function show(id) {
+  document.querySelectorAll('#app > div').forEach(el => el.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function start() {
   document.getElementById('music').play();
-  show(2);
+  show('s2');
 }
 
-function show(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('s'+n).classList.add('active');
+function openGift() {
+  show('s3');
 }
 
-function next(n){ show(n); typeText(); }
+function next(n) {
+  show('s' + n);
+  if(n === 4) typeText();
+}
 
-function openGift(){ show(3); }
-
-// Typing
-let msg="You are my best friend and my biggest support. I love you so much ❤️";
-let i=0;
-function typeText(){
-  let el=document.getElementById('text');
-  el.innerHTML=""; i=0;
-  function t(){ if(i<msg.length){ el.innerHTML+=msg[i++]; setTimeout(t,40);} }
+// Typing effect
+let msg = "You are my best friend and my biggest support. I love you so much ❤️";
+function typeText() {
+  let i = 0;
+  let el = document.getElementById('text');
+  el.innerHTML = "";
+  function t() {
+    if (i < msg.length) {
+      el.innerHTML += msg[i++];
+      setTimeout(t, 40);
+    }
+  }
   t();
 }
 
 // Balloons
-setInterval(()=>{
-  let b=document.createElement('div');
-  b.className='balloon';
-  b.innerHTML='🎈';
-  b.style.left=Math.random()*100+'vw';
+setInterval(() => {
+  let b = document.createElement('div');
+  b.className = 'balloon';
+  b.innerHTML = '🎈';
+  b.style.left = Math.random() * 100 + 'vw';
   document.body.appendChild(b);
-  setTimeout(()=>b.remove(),8000);
-},800);
+  setTimeout(() => b.remove(), 8000);
+}, 700);
 
 // Confetti
-function confetti(){
-  for(let i=0;i<80;i++){
-    let c=document.createElement('div');
-    c.className='conf';
-    c.style.left=Math.random()*100+'vw';
-    c.style.background=['red','yellow','blue','pink'][Math.floor(Math.random()*4)];
+function celebrate() {
+  for (let i = 0; i < 100; i++) {
+    let c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = ['red','yellow','blue','pink'][Math.floor(Math.random()*4)];
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
+    setTimeout(() => c.remove(), 3000);
   }
 }
 </script>
