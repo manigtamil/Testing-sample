@@ -1,10 +1,11 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Sister 🎉</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -22,16 +23,16 @@ body {
   align-items: center;
   height: 100vh;
   text-align: center;
+  padding: 20px;
 }
 
 h1 {
-  font-size: 2.5rem;
-  animation: fadeIn 1.5s ease-in-out;
+  font-size: 2.8rem;
 }
 
 p {
   font-size: 1.2rem;
-  max-width: 300px;
+  max-width: 350px;
 }
 
 button {
@@ -50,30 +51,43 @@ button:hover {
   transform: scale(1.1);
 }
 
-.card { display: none; }
+.card { display: none; animation: fade 1s ease; }
 
 img {
-  width: 220px;
+  width: 230px;
   border-radius: 20px;
   margin: 15px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-@keyframes fadeIn {
+@keyframes fade {
   from {opacity: 0; transform: translateY(30px);} 
   to {opacity: 1; transform: translateY(0);} 
 }
 
-/* Floating Hearts */
+/* Floating hearts */
 .heart {
   position: absolute;
-  color: pink;
   animation: float 5s linear infinite;
 }
 
 @keyframes float {
-  0% {transform: translateY(100vh) scale(0.5);} 
-  100% {transform: translateY(-10vh) scale(1.5);} 
+  0% {transform: translateY(100vh);} 
+  100% {transform: translateY(-10vh);} 
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: white;
+  animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-10vh);} 
+  100% {transform: translateY(100vh);} 
 }
 
 </style>
@@ -82,37 +96,42 @@ img {
 <body>
 
 <!-- Music -->
-<audio id="music" autoplay loop>
+<audio autoplay loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Page 1 -->
 <div class="container" id="page1">
   <h1>🎁 Hey Sister!</h1>
-  <p>I made something special for you 💖</p>
-  <button onclick="nextPage()">Tap to Open 🎉</button>
+  <p>Something special is waiting for you 💖</p>
+  <button onclick="nextPage()">Open Surprise 🎉</button>
 </div>
 
+<!-- Page 2 -->
 <div class="container card" id="page2">
   <h1>🎉 Happy Birthday 🎉</h1>
-  <p>You are my biggest happiness 💕</p>
   <img src="photo1.jpg">
+  <p>You are my happiness & strength 💕</p>
   <button onclick="nextPage2()">Next 💫</button>
 </div>
 
+<!-- Page 3 -->
 <div class="container card" id="page3">
-  <h1>💌 Special Message</h1>
-  <p>Thank you for being my support, my best friend, and my everything ❤️</p>
+  <h1>💌 Message for You</h1>
   <img src="photo2.jpg">
+  <p id="typing"></p>
   <button onclick="nextPage3()">Final Surprise 🎂</button>
 </div>
 
+<!-- Page 4 -->
 <div class="container card" id="page4">
   <h1>🎂 Enjoy Your Day 🎂</h1>
-  <p>May your life be filled with happiness & success ✨</p>
   <img src="photo3.jpg">
+  <p>May all your dreams come true ✨</p>
 </div>
 
 <script>
+
 function nextPage() {
   document.getElementById('page1').style.display = 'none';
   document.getElementById('page2').style.display = 'flex';
@@ -121,14 +140,27 @@ function nextPage() {
 function nextPage2() {
   document.getElementById('page2').style.display = 'none';
   document.getElementById('page3').style.display = 'flex';
+  typeEffect();
 }
 
 function nextPage3() {
   document.getElementById('page3').style.display = 'none';
   document.getElementById('page4').style.display = 'flex';
+  confettiEffect();
 }
 
-// Floating hearts generator
+// Typing effect
+const text = "Thank you for always being there for me. I love you so much ❤️";
+let i = 0;
+function typeEffect() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeEffect, 50);
+  }
+}
+
+// Hearts
 setInterval(() => {
   let heart = document.createElement("div");
   heart.innerHTML = "💖";
@@ -136,15 +168,21 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = (Math.random() * 20 + 20) + "px";
   document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
+  setTimeout(() => heart.remove(), 5000);
 }, 300);
+
+// Confetti
+function confettiEffect() {
+  for (let i = 0; i < 50; i++) {
+    let confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
+
 </script>
 
 </body>
 </html>
-=======
-
->>>>>>> d73966a8d20222d440a9b937a929fb6e5a5fb33a
