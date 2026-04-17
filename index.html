@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Birthday Surprise 💖</title>
 
-<!-- Tailwind CSS CDN for modern UI -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -13,7 +12,7 @@
 body { font-family: 'Poppins', sans-serif; }
 .title { font-family: 'Great Vibes', cursive; }
 
-/* Floating balloons */
+/* Balloons */
 .balloon {
   position: fixed;
   bottom: -100px;
@@ -43,44 +42,50 @@ body { font-family: 'Poppins', sans-serif; }
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Screen Wrapper -->
 <div id="app" class="w-full h-screen flex items-center justify-center">
 
 <!-- Screen 1 -->
 <div id="s1" class="text-center space-y-6">
   <h1 class="title text-5xl">Hey Sister 💖</h1>
-  <p class="text-lg">I have something special for you</p>
-  <button onclick="start()" class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-110 transition">Start 🎁</button>
+  <p>I have something special for you</p>
+  <button onclick="start()" class="bg-white text-pink-600 px-6 py-3 rounded-full hover:scale-110 transition">Start 🎁</button>
 </div>
 
-<!-- Screen 2 Game -->
+<!-- Screen 2 -->
 <div id="s2" class="hidden text-center space-y-6">
   <h1 class="title text-4xl">Tap the Gift 🎁</h1>
-  <div onclick="openGift()" class="text-8xl cursor-pointer animate-bounce">🎁</div>
-  <p>Tap to unlock your surprise 😄</p>
+  <div onclick="openGift()" class="text-8xl animate-bounce cursor-pointer">🎁</div>
 </div>
 
 <!-- Screen 3 -->
 <div id="s3" class="hidden text-center space-y-4">
   <h1 class="title text-5xl">Happy Birthday 🎉</h1>
   <img src="photo1.jpg" class="w-64 mx-auto rounded-xl shadow-xl">
-  <p>You are my happiness 💕</p>
   <button onclick="next(4)" class="bg-white text-pink-600 px-6 py-2 rounded-full">Next</button>
 </div>
 
-<!-- Screen 4 Typing -->
+<!-- Screen 4 -->
 <div id="s4" class="hidden text-center space-y-4">
   <h1 class="title text-4xl">Message 💌</h1>
-  <p id="text" class="text-lg"></p>
+  <p id="text"></p>
   <button onclick="next(5)" class="bg-white text-pink-600 px-6 py-2 rounded-full">Final</button>
 </div>
 
-<!-- Screen 5 Final -->
+<!-- Screen 5 FINAL -->
 <div id="s5" class="hidden text-center space-y-4">
   <h1 class="title text-5xl">Enjoy Your Day 🎂</h1>
   <img src="photo33.jpg" class="w-64 mx-auto rounded-xl shadow-xl">
   <p>Love you forever ❤️</p>
-  <button onclick="celebrate()" class="bg-white text-pink-600 px-6 py-2 rounded-full">Celebrate 🎆</button>
+
+  <button onclick="celebrate()" class="bg-white text-pink-600 px-6 py-2 rounded-full">
+    Celebrate 🎆
+  </button>
+
+  <!-- Cake GIF -->
+  <div id="cakeBox" class="hidden mt-4">
+    <img src="cake.gif" class="w-64 mx-auto rounded-xl shadow-lg">
+    <p class="mt-2">Make a wish & cut the cake 🎂💖</p>
+  </div>
 </div>
 
 </div>
@@ -130,9 +135,14 @@ setInterval(() => {
   setTimeout(() => b.remove(), 8000);
 }, 700);
 
-// Confetti
+// Celebrate
 function celebrate() {
-  for (let i = 0; i < 100; i++) {
+
+  // Show cake GIF
+  document.getElementById('cakeBox').classList.remove('hidden');
+
+  // Confetti
+  for (let i = 0; i < 120; i++) {
     let c = document.createElement('div');
     c.className = 'confetti';
     c.style.left = Math.random() * 100 + 'vw';
